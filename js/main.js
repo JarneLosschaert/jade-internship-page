@@ -128,17 +128,34 @@
   var pathLength = 0;
 
   function photoCentres() {
+    var svgRect = svg.getBoundingClientRect();
     var photos = timeline.querySelectorAll(".node__photo");
     var pts = [];
     photos.forEach(function (p) {
-      // offset positions ignore CSS transforms (reveal + polaroid tilt),
-      // so the line stays stable while nodes animate in.
+      // Measure each photo's centre relative to the SVG.
+      // getBoundingClientRect gives the correct centre even when the photo is
+      // rotated (polaroid) or while its parent is mid-reveal animation.
+      // (The old offsetTop method broke: a transformed ancestor becomes the
+      // offsetParent, collapsing offsetTop to ~0 for not-yet-revealed nodes,
+      // which made the line shoot sideways.)
+      var r = p.getBoundingClientRect();
       pts.push({
-        x: p.offsetLeft + p.offsetWidth / 2,
-        y: p.offsetTop + p.offsetHeight / 2,
+        x: r.left + r.width / 2 - svgRect.left,
+        y: r.top + r.height / 2 - svgRect.top,
       });
     });
     return pts;
+  }
+
+  // Recompute the line at most once per animation frame.
+  var drawQueued = false;
+  function scheduleDraw() {
+    if (drawQueued) return;
+    drawQueued = true;
+    requestAnimationFrame(function () {
+      drawQueued = false;
+      drawLine();
+    });
   }
 
   function smoothPath(pts) {
@@ -203,6 +220,7 @@
           if (e.isIntersecting) {
             e.target.classList.add("is-visible");
             obs.unobserve(e.target);
+            scheduleDraw();
           }
         });
       },
@@ -355,4 +373,13 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawLine);
   window.addEventListener("resize", debounce(drawLine, 150));
   window.addEventListener("scroll", updateDraw, { passive: true });
+
+  // when a node finishes sliding into view, its final position is known, so
+  // recompute the line to snap it exactly onto the photo centres.
+  document.getElementById("timeline-nodes").addEventListener("transitionend", function (e) {
+    if (e.propertyName === "transform") scheduleDraw();
+  });
+  // a couple of safety redraws for late layout shifts (slow image/font loads)
+  setTimeout(drawLine, 400);
+  setTimeout(drawLine, 1200);
 })();
