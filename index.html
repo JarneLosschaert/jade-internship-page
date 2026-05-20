@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My internship at COSH!</title>
+  <meta name="description" content="An internship report at COSH!, told as an interactive timeline." />
+
+  <!-- Fonts: a classy serif for titles + a clean sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- The whole page is built automatically from js/content.js.
+       You normally never need to touch this file. -->
+
+  <!-- Opening section -->
+  <header class="intro" id="intro"></header>
+
+  <!-- The winding timeline ("lifeline") -->
+  <main class="timeline" id="timeline">
+    <svg class="timeline__line" id="timeline-line" aria-hidden="true" preserveAspectRatio="none"></svg>
+    <div class="timeline__nodes" id="timeline-nodes"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer"></footer>
+
+  <!-- The pop-up reading panel (filled in when you click a photo) -->
+  <div class="story-overlay" id="story-overlay" hidden>
+    <div class="story-backdrop" data-close></div>
+    <article class="story-card" id="story-card" role="dialog" aria-modal="true" aria-labelledby="story-card-title" tabindex="-1">
+      <button class="story-card__close" data-close aria-label="Close story">&times;</button>
+      <div class="story-card__scroll" id="story-card-scroll"></div>
+    </article>
+  </div>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

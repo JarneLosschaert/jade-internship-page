@@ -1,0 +1,513 @@
+/* ============================================================================
+   STYLES  —  how the page LOOKS (colours, fonts, spacing, animations)
+   ============================================================================
+   The words and photos live in  js/content.js .  This file is the design.
+
+   ▸ TO CHANGE THE COLOURS: edit the values in ":root" right below.
+     These are taken from the project colour scheme:
+        light blue #8EB9FC  ·  blue #274DEA  ·  mint #EBFFDC
+        yellow     #FFF197  ·  red  #FF513D
+   ========================================================================== */
+
+:root {
+  /* --- the colour palette (change these to re-skin the whole page) --- */
+  --blue:        #274DEA;   /* the winding line + links */
+  --light-blue:  #8EB9FC;
+  --mint:        #EBFFDC;
+  --yellow:      #FFF197;
+  --red:         #FF513D;
+
+  /* --- text & surfaces --- */
+  --ink:        #1b2336;    /* main text colour */
+  --ink-soft:   #5c6577;    /* lighter text (teasers, captions) */
+  --paper:      #fbfaf5;    /* page background */
+  --card:       #ffffff;    /* cards & photo frames */
+
+  /* --- fonts --- */
+  --font-title: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* --- a few tunables --- */
+  --line-weight: 5px;       /* thickness of the winding line */
+  --maxw: 1040px;           /* width the content lives inside */
+  --accent: var(--light-blue);
+}
+
+/* accent helper classes (set per story via "accent" in content.js) */
+.accent-yellow     { --accent: var(--yellow); }
+.accent-red        { --accent: var(--red); }
+.accent-lightblue  { --accent: var(--light-blue); }
+.accent-blue       { --accent: var(--blue); }
+.accent-mint       { --accent: var(--mint); }
+
+/* --------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background:
+    radial-gradient(900px 600px at 0% -5%,  rgba(142,185,252,0.20), transparent 60%),
+    radial-gradient(800px 500px at 100% 8%, rgba(255,241,151,0.22), transparent 55%),
+    radial-gradient(1000px 700px at 50% 108%, rgba(235,255,220,0.55), transparent 60%),
+    var(--paper);
+  background-attachment: fixed;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--blue); }
+
+/* =========================================================================
+   1.  THE OPENING
+   ========================================================================= */
+.intro {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(5rem, 14vh, 9rem) 1.5rem 2rem;
+  text-align: center;
+}
+
+.intro__kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 600;
+  margin: 0 0 1.2rem;
+}
+
+.intro__title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.2rem;
+  color: var(--ink);
+}
+
+.intro__subtitle {
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: var(--ink-soft);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.intro__hint {
+  margin-top: 3rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.intro__hint span.chev {
+  width: 14px; height: 14px;
+  border-right: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
+  transform: rotate(45deg);
+  animation: bob 1.8s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+  50%      { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
+}
+
+/* =========================================================================
+   2.  THE TIMELINE / LIFELINE
+   ========================================================================= */
+.timeline {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* the SVG line is drawn by js/main.js and sits behind the photos */
+.timeline__line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+.timeline__line path.line-path {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: var(--line-weight);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 4px 10px rgba(39, 77, 234, 0.18));
+}
+
+.timeline__nodes {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 8vh, 6rem);
+}
+
+/* ---- one stop on the line ---- */
+.node {
+  display: flex;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.node.is-visible { opacity: 1; transform: none; }
+.node--left  { justify-content: flex-start; }
+.node--right { justify-content: flex-end; }
+
+.node__inner {
+  width: min(360px, 80%);
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+.node__inner:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 8px;
+  border-radius: 16px;
+}
+
+/* ---- the framed photo ---- */
+.node__photo {
+  position: relative;
+  width: 220px;
+  max-width: 64vw;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+  background: var(--card);
+}
+.node__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* circle frame */
+.node__photo.frame-circle {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  padding: 7px;
+  box-shadow: 0 14px 34px rgba(27, 35, 54, 0.16);
+}
+.node__photo.frame-circle img {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+}
+.node__photo.frame-circle::after { /* accent ring */
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0.9;
+}
+
+/* polaroid frame */
+.node__photo.frame-polaroid {
+  padding: 12px 12px 30px;
+  border-radius: 4px;
+  box-shadow: 0 16px 34px rgba(27, 35, 54, 0.18);
+  transform: rotate(-2.5deg);
+}
+.node--right .node__photo.frame-polaroid { transform: rotate(2.5deg); }
+.node__photo.frame-polaroid img {
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+}
+
+/* hover / focus feedback (content opens on CLICK, not hover) */
+.node__inner:hover .node__photo.frame-circle,
+.node__inner:focus-visible .node__photo.frame-circle { transform: translateY(-6px) scale(1.03); }
+.node__inner:hover .node__photo.frame-polaroid,
+.node__inner:focus-visible .node__photo.frame-polaroid { transform: rotate(0deg) translateY(-6px) scale(1.03); }
+
+/* number badge */
+.node__num {
+  position: absolute;
+  top: -12px; left: -12px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(39, 77, 234, 0.35);
+  z-index: 2;
+}
+
+/* little decorative starburst */
+.node__burst {
+  position: absolute;
+  right: -16px; bottom: 6px;
+  width: 40px; height: 40px;
+  color: var(--accent);
+  z-index: 2;
+  animation: spin 14s linear infinite;
+}
+.node--right .node__burst { right: auto; left: -16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- text under the photo ---- */
+.node__label {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--accent);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  margin-top: 0.4rem;
+}
+.node__title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.node__teaser {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.node__cta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.1rem;
+}
+.node__cta::after {
+  content: "→";
+  transition: transform 0.3s ease;
+}
+.node__inner:hover .node__cta::after { transform: translateX(4px); }
+
+/* =========================================================================
+   3.  THE POP-UP STORY (opens when you click a photo)
+   ========================================================================= */
+.story-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+.story-overlay[hidden] { display: none; }
+
+.story-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 26, 44, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade 0.3s ease;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.story-card {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: 88vh;
+  background: var(--card);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(20, 26, 44, 0.35);
+  animation: pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes pop {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+.story-card::before { /* accent bar at the very top */
+  content: "";
+  display: block;
+  height: 7px;
+  background: var(--accent);
+}
+
+.story-card__close {
+  position: absolute;
+  top: 14px; right: 16px;
+  z-index: 3;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(20, 26, 44, 0.18);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.story-card__close:hover { transform: rotate(90deg); background: #fff; }
+
+.story-card__scroll {
+  overflow-y: auto;
+  max-height: calc(88vh - 7px);
+  padding: 0 0 2.5rem;
+}
+
+.story-cover {
+  width: 100%;
+  height: clamp(180px, 34vh, 300px);
+  object-fit: cover;
+}
+
+.story-body { padding: 1.8rem clamp(1.4rem, 4vw, 2.6rem) 0; }
+
+.story-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--accent);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+.story-title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.4rem;
+}
+
+.story-block { margin: 0 0 1.3rem; }
+.story-block h3 {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+  margin: 0 0 0.35rem;
+}
+.story-block p {
+  margin: 0;
+  font-size: 1.02rem;
+  color: #2c3344;
+}
+
+.story-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding: 0.8rem 1.4rem;
+  background: var(--blue);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(39, 77, 234, 0.28);
+}
+.story-link:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(39, 77, 234, 0.38); }
+.story-link::after { content: "↗"; }
+
+.story-gallery {
+  margin-top: 1.8rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.8rem;
+}
+.story-gallery figure { margin: 0; }
+.story-gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(20, 26, 44, 0.14);
+  transition: transform 0.3s ease;
+}
+.story-gallery img:hover { transform: scale(1.03); }
+.story-gallery figcaption {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  text-align: center;
+}
+
+/* =========================================================================
+   4.  FOOTER
+   ========================================================================= */
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem 4rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.footer a { font-weight: 600; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+.footer__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  display: inline-block;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+
+/* =========================================================================
+   5.  MOBILE  (one clean column down the middle)
+   ========================================================================= */
+@media (max-width: 720px) {
+  .node--left, .node--right { justify-content: center; }
+  .node__inner { width: min(320px, 88%); }
+  .node__photo.frame-polaroid,
+  .node--right .node__photo.frame-polaroid { transform: rotate(0deg); }
+  .timeline { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .node { opacity: 1; transform: none; }
+}
