@@ -387,7 +387,7 @@ a { color: var(--blue); }
 
 .story-cover {
   width: 100%;
-  height: clamp(180px, 34vh, 300px);
+  height: clamp(350px, 34vh, 300px);
   object-fit: cover;
 }
 
