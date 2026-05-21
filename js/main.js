@@ -245,10 +245,20 @@
     card.style.setProperty("--accent", accentHex);
 
     if (story.cover) {
+      // banner that shows the WHOLE photo, with a soft blurred copy behind it
+      // so portrait/landscape covers both look good (no cropping, no dead space)
+      var coverWrap = el("button", "story-cover-wrap");
+      coverWrap.type = "button";
+      coverWrap.setAttribute("aria-label", "View cover photo full screen");
+      var coverBg = el("div", "story-cover-bg");
+      coverBg.style.backgroundImage = 'url("' + story.cover + '")';
+      coverWrap.appendChild(coverBg);
       var cover = el("img", "story-cover");
       cover.src = story.cover;
       cover.alt = story.title || "";
-      scroll.appendChild(cover);
+      coverWrap.appendChild(cover);
+      coverWrap.addEventListener("click", function () { openLightbox(story.cover, story.title || ""); });
+      scroll.appendChild(coverWrap);
     }
 
     var body = el("div", "story-body");
@@ -291,11 +301,16 @@
       var gal = el("div", "story-gallery");
       story.gallery.forEach(function (g) {
         var fig = el("figure");
+        var btn = el("button", "gallery-btn");
+        btn.type = "button";
+        btn.setAttribute("aria-label", "View photo full screen");
         var im = el("img");
         im.src = g.src;
         im.alt = g.caption || "";
         im.loading = "lazy";
-        fig.appendChild(im);
+        btn.appendChild(im);
+        btn.addEventListener("click", function () { openLightbox(g.src, g.caption || ""); });
+        fig.appendChild(btn);
         if (g.caption) {
           var cap = el("figcaption");
           cap.textContent = g.caption;
@@ -317,15 +332,53 @@
 
   function closeStory() {
     overlay.hidden = true;
-    document.body.style.overflow = "";
+    if (lightbox.hidden) document.body.style.overflow = "";
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
   overlay.addEventListener("click", function (e) {
     if (e.target.hasAttribute("data-close")) closeStory();
   });
+
+  /* ---- full-screen image viewer (lightbox) ---- */
+  var lightbox = el("div", "lightbox");
+  lightbox.hidden = true;
+  var lbClose = el("button", "lightbox__close");
+  lbClose.setAttribute("aria-label", "Close image");
+  lbClose.innerHTML = "&times;";
+  var lbImg = el("img", "lightbox__img");
+  lbImg.alt = "";
+  var lbCap = el("div", "lightbox__cap");
+  lightbox.appendChild(lbClose);
+  lightbox.appendChild(lbImg);
+  lightbox.appendChild(lbCap);
+  document.body.appendChild(lightbox);
+  var lbLastFocused = null;
+
+  function openLightbox(src, caption) {
+    lbImg.src = src;
+    lbImg.alt = caption || "";
+    lbCap.textContent = caption || "";
+    lbCap.style.display = caption ? "block" : "none";
+    lbLastFocused = document.activeElement;
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    lbClose.focus();
+  }
+  function closeLightbox() {
+    lightbox.hidden = true;
+    // if the story dialog is still open behind it, keep the page scroll locked
+    if (overlay.hidden) document.body.style.overflow = "";
+    if (lbLastFocused && lbLastFocused.focus) lbLastFocused.focus();
+  }
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox || e.target === lbClose) closeLightbox();
+  });
+
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !overlay.hidden) closeStory();
+    if (e.key !== "Escape") return;
+    if (!lightbox.hidden) { closeLightbox(); return; }
+    if (!overlay.hidden) closeStory();
   });
 
   /* ----------------------------------------------------------------------- *
