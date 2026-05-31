@@ -44,6 +44,31 @@
       s.textContent = i.subtitle;
       root.appendChild(s);
     }
+    if (i.photo || i.about) {
+      var hero = el("div", "intro__hero");
+      if (i.photo) {
+        var imgWrap = el("div", "intro__photo-wrap");
+        var img = document.createElement("img");
+        img.src = i.photo;
+        img.alt = "Jade Losschaert";
+        imgWrap.appendChild(img);
+        hero.appendChild(imgWrap);
+      }
+      if (i.about) {
+        var aboutDiv = el("div", "intro__about");
+        var tag = el("span", "intro__about-tag");
+        tag.textContent = "About me";
+        aboutDiv.appendChild(tag);
+        i.about.split("\n\n").forEach(function (para) {
+          var p = document.createElement("p");
+          p.textContent = para;
+          aboutDiv.appendChild(p);
+        });
+        hero.appendChild(aboutDiv);
+      }
+      root.appendChild(hero);
+    }
+
     if (i.scrollHint) {
       var hint = el("div", "intro__hint");
       var label = document.createElement("span");

@@ -27,6 +27,23 @@ const SITE = {
 
   /* ---- THE OPENING (very top of the page) -------------------------------- */
   intro: {
+    photo: "images/intro.jpg",
+    about:
+      "My name is Jade Losschaert, 21 years old, and I recently completed my internship at COSH!, " +
+      "where I worked as a graphic design intern. I am currently studying International Graphic and " +
+      "Digital Media at Artevelde University of Applied Sciences in Ghent, with a strong focus on " +
+      "graphic design and branding. I am passionate about creating visual identities, editorial design, " +
+      "posters, and creative concepts that tell a story and connect with people in an authentic way.\n\n" +
+      "Besides design, I have a strong passion for music, which is also a big source of inspiration in " +
+      "many of my creative projects. I am a very open-minded, social, and positive person who loves " +
+      "being surrounded by the people I care about. I enjoy meaningful conversations, discovering new " +
+      "things, and expressing myself creatively in different ways. In my free time, I work in the " +
+      "kitchen at a bistro, where I learned to work under pressure, stay organized, and collaborate " +
+      "closely with others.\n\n" +
+      "I am someone who enjoys combining creativity with emotion and storytelling. I love working on " +
+      "projects that feel authentic and personal, and I am always curious to explore new ideas, styles, " +
+      "and perspectives. Whether it is through branding, music-inspired visuals, magazines, or " +
+      "photography, I enjoy creating work that feels human, relatable, and full of character.",
     kicker: "Internship report · 2026",
     title: "My internship at COSH!",
     // The subtitle appears under the big title.
@@ -82,6 +99,8 @@ const SITE = {
       ],
       gallery: [
         { src: "images/intro/cosh-logo.png", caption: "COSH! conscious shopping made easy" },
+        { src: "images/intro/cosh-website.jpg", caption: "The COSH! platform at cosh.eco" },
+        { src: "images/intro/cosh-app-mockup.jpg", caption: "The COSH! Digital Wardrobe app in action" },
       ],
     },
 
@@ -106,7 +125,14 @@ const SITE = {
           "This project shows the breadth of what I can do: visual design, creative ideation, planning across multiple formats, and the ability to carry real responsibility during an important brand moment. But it also shows something I value just as much: knowing how to be part of a team." },
       ],
       gallery: [
+        { src: "images/fashion-revolution-week/post-break-consumption-cycle.jpg", caption: "'Break The Consumption Cycle' — published during Fashion Revolution Week" },
+        { src: "images/fashion-revolution-week/post-fashion-revolution.jpg", caption: "Fashion Revolution — #WhoMadeMyClothes" },
+        { src: "images/fashion-revolution-week/post-drowning-in-clothes.jpg", caption: "'We're drowning in clothes' — only 20% of our wardrobe gets worn" },
+        { src: "images/fashion-revolution-week/post-what-you-can-do.jpg", caption: "'Here's what you can do' — tips for conscious fashion choices" },
+        { src: "images/fashion-revolution-week/post-lena-fashion-library.jpg", caption: "LENA the fashion library — a COSH! member brand spotlight" },
         { src: "images/fashion-revolution-week/circular-economy.png", caption: "The circular fashion system, visualised" },
+        { src: "images/fashion-revolution-week/circle.webp", caption: "Full fashion supply chain: from production to recycling and back" },
+        { src: "images/fashion-revolution-week/circular-economy-icon.webp", caption: "R0 to R9: the strategies of a circular economy" },
       ],
       link: {
         url: "https://cosh.eco/en/articles/evolution-of-circular-supply-chains",
@@ -140,6 +166,7 @@ const SITE = {
         { src: "images/digital-product-passport/screenshot-5.png", caption: "Digital Product Passport design in Figma" },
         { src: "images/digital-product-passport/screenshot-6.png", caption: "Digital Product Passport design in Figma" },
         { src: "images/digital-product-passport/label-3.jpeg", caption: "The physical label, with a QR code to scan" },
+        { src: "images/digital-product-passport/cover.jpeg", caption: "A real Digital Product Passport label — 'scan to take care'" },
       ],
       link: {
         url: "https://cosh.eco/en/articles/eu-digital-product-passport-espr-explained-fashion-textiles",
@@ -166,6 +193,10 @@ const SITE = {
           "I learned how to analyse digital products critically, not just aesthetically, but functionally. It sharpened my eye for UX decisions and gave me a much better understanding of what makes an app feel intuitive versus frustrating. It also improved my ability to work independently and organise large amounts of information in a clear, usable way." },
         { heading: "Why I chose it", text:
           "This project is a concrete example of how research can directly shape strategy. The work I did didn't just sit in a file somewhere; it became the foundation for real decisions about the future of the app." },
+      ],
+      gallery: [
+        { src: "images/competitor-analysis/figma-competitor-analysis.jpg", caption: "Competitor analysis in Figma — mapping rival apps like Whering and Indyx" },
+        { src: "images/competitor-analysis/article-wardrobe-apps.jpg", caption: "The article published on cosh.eco: 'The best wardrobe apps to organise your clothes'" },
       ],
     },
 

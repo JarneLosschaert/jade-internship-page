@@ -68,7 +68,7 @@ a { color: var(--blue); }
    1.  THE OPENING
    ========================================================================= */
 .intro {
-  max-width: 760px;
+  max-width: 860px;
   margin: 0 auto;
   padding: clamp(5rem, 14vh, 9rem) 1.5rem 2rem;
   text-align: center;
@@ -123,6 +123,74 @@ a { color: var(--blue); }
   0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
   50%      { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
 }
+
+/* intro hero: about card */
+.intro__hero {
+  margin-top: 3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4rem;
+  text-align: left;
+  background: var(--card);
+  border-radius: 22px;
+  padding: 2rem 2.4rem 2rem 1.8rem;
+  box-shadow: 0 12px 40px rgba(27,35,54,0.09);
+  position: relative;
+  overflow: hidden;
+}
+.intro__hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--light-blue);
+  border-radius: 22px 22px 0 0;
+}
+
+/* polaroid-style photo — same treatment as the timeline nodes */
+.intro__photo-wrap {
+  flex-shrink: 0;
+  width: 190px;
+  padding: 10px 10px 26px;
+  background: var(--card);
+  box-shadow: 0 16px 34px rgba(27,35,54,0.16);
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  margin-top: 0.6rem;
+}
+.intro__photo-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* "About me" pill — matches .node__label / .story-label */
+.intro__about-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--light-blue);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.85rem;
+}
+
+.intro__about {
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.intro__about p { margin: 0 0 0.9em; }
+.intro__about p:first-of-type {
+  font-size: clamp(0.95rem, 1.8vw, 1.06rem);
+  color: var(--ink);
+  font-weight: 500;
+}
+.intro__about p:last-child { margin-bottom: 0; }
 
 /* =========================================================================
    2.  THE TIMELINE / LIFELINE
@@ -584,6 +652,14 @@ a { color: var(--blue); }
    5.  MOBILE  (one clean column down the middle)
    ========================================================================= */
 @media (max-width: 720px) {
+  .intro__hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.6rem 1.4rem;
+  }
+  .intro__photo-wrap { width: 150px; }
+
   .node--left, .node--right { justify-content: center; }
   .node__inner { width: min(340px, 90%); }
   .node__photo { width: 260px; max-width: 80vw; }
