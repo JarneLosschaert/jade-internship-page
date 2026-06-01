@@ -35,7 +35,7 @@ const SITE = {
       "graphic design and branding. I am passionate about creating visual identities, editorial design, " +
       "posters, and creative concepts that tell a story and connect with people in an authentic way.\n\n" +
       "Besides design, I have a strong passion for music, which is also a big source of inspiration in " +
-      "many of my creative projects. I am a very open-minded, social, and positive person who loves " +
+      "many of my creative projects. I am an open-minded, social, and positive person who loves " +
       "being surrounded by the people I care about. I enjoy meaningful conversations, discovering new " +
       "things, and expressing myself creatively in different ways. In my free time, I work in the " +
       "kitchen at a bistro, where I learned to work under pressure, stay organized, and collaborate " +
@@ -130,7 +130,6 @@ const SITE = {
         { src: "images/fashion-revolution-week/post-drowning-in-clothes.jpg", caption: "'We're drowning in clothes' — only 20% of our wardrobe gets worn" },
         { src: "images/fashion-revolution-week/post-what-you-can-do.jpg", caption: "'Here's what you can do' — tips for conscious fashion choices" },
         { src: "images/fashion-revolution-week/post-lena-fashion-library.jpg", caption: "LENA the fashion library — a COSH! member brand spotlight" },
-        { src: "images/fashion-revolution-week/circular-economy.png", caption: "The circular fashion system, visualised" },
         { src: "images/fashion-revolution-week/circle.webp", caption: "Full fashion supply chain: from production to recycling and back" },
         { src: "images/fashion-revolution-week/circular-economy-icon.webp", caption: "R0 to R9: the strategies of a circular economy" },
       ],
@@ -240,11 +239,11 @@ const SITE = {
       accent: "red",
       blocks: [
         { heading: "Education vs. practice", text:
-          "My programme corresponds well with the skills I used at COSH!, especially communication design, UX/UI thinking, research, and visual storytelling. But there's a clear difference between school and practice: at school I usually create a concept from scratch, while at COSH! I had to work within an existing brand identity and apply it consistently across Instagram posts, reels, campaigns, pitch decks, and templates. Real workflows were also more dynamic: feedback from colleagues, external partners, and meetings (such as with Bits of Love) often adjusted the direction mid-process." },
+          "My programme corresponds well with the skills I used at COSH!, especially communication design, UX/UI thinking, research, and visual storytelling. But there's a clear difference between school and practice: at school I usually create a concept from scratch, while at COSH! I had to work within an existing brand identity and apply it consistently across Instagram posts, reels, campaigns, pitch decks, and templates. Real workflows were also more dynamic: feedback from colleagues and external partners often adjusted the direction mid-process." },
         { heading: "The added value", text:
           "The biggest added value is that I worked on real, publishable projects with actual impact: I created and published a wide variety of Instagram content, contributed to UX/UI design in Figma for the Digital Product Passport, and ran a full competitor analysis by testing real onboarding flows. It showed me how design, research, and strategy connect in a professional environment shaped by sustainability goals, legislation (such as ESPR and DPP requirements), and multiple stakeholders. On a personal level, I grew a lot in confidence." },
         { heading: "What went well", text:
-          "Real and diverse experience: social media content, UX/UI design, video editing, research, campaigns, and pitch decks. Responsibility and independence: I was trusted with important tasks and personally installed and tested more than seven apps, structuring all findings in Excel and Figma. Collaboration: I worked closely with designers, marketers, developers, another intern, and external partners like Bits of Love." },
+          "Real and diverse experience: social media content, UX/UI design, video editing, research, campaigns, and pitch decks. Responsibility and independence: I was trusted with important tasks and were published as well. Collaboration: I worked closely with designers, marketers, developers, another intern." },
         { heading: "What was harder", text:
           "Some tasks were unclear or evolving, so I occasionally had to ask several times for clarification. The pace was fast and projects overlapped, which made prioritising difficult and demanded a lot of organisation. And deadlines sometimes meant moving forward quickly instead of testing several creative variations." },
         { heading: "Conclusion", text:
