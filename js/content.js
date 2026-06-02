@@ -27,7 +27,7 @@ const SITE = {
 
   /* ---- THE OPENING (very top of the page) -------------------------------- */
   intro: {
-    photo: "images/intro.jpg",
+    photo: "images/intro.jpeg",
     about:
       "My name is Jade Losschaert, 21 years old, and I recently completed my internship at COSH!, " +
       "where I worked as a graphic design intern. I am currently studying International Graphic and " +
